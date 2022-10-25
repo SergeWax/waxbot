@@ -57,7 +57,7 @@ public class TelegramBot extends TelegramLongPollingBot {
             execute(message);
 
         } catch (TelegramApiException e) {
-            System.out.println();
+            System.out.println("fsdf");
         }
 
     }
