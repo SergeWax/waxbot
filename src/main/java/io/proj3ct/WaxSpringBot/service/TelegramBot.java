@@ -2,12 +2,14 @@ package io.proj3ct.WaxSpringBot.service;
 
 import io.proj3ct.WaxSpringBot.config.BotConfig;
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
+@Slf4j
 @Component
 public class TelegramBot extends TelegramLongPollingBot {
 
@@ -45,6 +47,7 @@ public class TelegramBot extends TelegramLongPollingBot {
     }
     private void StartCommandReceived(long chatId, String name) {
         String answer = "Hi, " + name + "!. " + "You have cool name!";
+        log.error("Replied to user" + name);
 
         sendMessage(chatId, answer);
     }
@@ -57,7 +60,7 @@ public class TelegramBot extends TelegramLongPollingBot {
             execute(message);
 
         } catch (TelegramApiException e) {
-            System.out.println("fsdfd");
+            log.info("Error" + e.getMessage());
         }
 
     }
