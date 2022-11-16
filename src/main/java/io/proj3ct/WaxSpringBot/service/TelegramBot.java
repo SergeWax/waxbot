@@ -5,9 +5,15 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.meta.api.methods.commands.SetMyCommands;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.api.objects.commands.BotCommand;
+import org.telegram.telegrambots.meta.api.objects.commands.scope.BotCommandScopeDefault;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j
 @Component
@@ -15,8 +21,19 @@ public class TelegramBot extends TelegramLongPollingBot {
 
     final BotConfig config;
 
-    public TelegramBot(BotConfig config) {
+    public TelegramBot(BotConfig config) throws TelegramApiException {
         this.config = config;
+        List<BotCommand> listOfCommand = new ArrayList<>();
+        listOfCommand.add(new BotCommand("/start", "get a welcome massage"));
+        listOfCommand.add(new BotCommand("/mydata", "get your data stored"));
+        listOfCommand.add(new BotCommand("deletedata", "delete my data"));
+        listOfCommand.add(new BotCommand("help", "info how to use this bot"));
+        listOfCommand.add(new BotCommand("/settings", "set yor preferences"));
+        try {
+            this.execute(new SetMyCommands(listOfCommand, new BotCommandScopeDefault(), null));
+        }catch (TelegramApiException e) {
+            log.error("Error setting's bot ..." + e.getMessage());
+        }
     }
 
     @Override

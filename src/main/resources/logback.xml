@@ -1,7 +1,7 @@
 <configuration>
 
     <property name="HOME_LOG" value="D:/var/log/proj3ct.io/tg-simple-bot/app.log"/>
-
+А
     <appender name="FILE-ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${HOME_LOG}</file>
 
