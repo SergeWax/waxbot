@@ -20,6 +20,7 @@ import java.util.List;
 public class TelegramBot extends TelegramLongPollingBot {
 
     final BotConfig config;
+    static final String HELP_TEXT = "I'm glad to see you. I am a test bot, but in the future I will be able more";
 
     public TelegramBot(BotConfig config) throws TelegramApiException {
         this.config = config;
@@ -57,7 +58,9 @@ public class TelegramBot extends TelegramLongPollingBot {
                 case "/start":
                     StartCommandReceived(chatId, update.getMessage().getChat().getFirstName());
                     break;
-
+                case "/help":
+                    sendMessage(chatId, HELP_TEXT);
+                    break;
                 default: sendMessage(chatId, "Sorry. Command was not recognized");
             }
         }
